@@ -62,18 +62,31 @@ def process_create_thread_to_downlad(download_list):
         thread.join()
 
 
+def split_list(download_urls ,i):
+    #每i個url分一組，並儲存在download_lists中，格式為[[1,2,3],[4,5,6]。。]
+    download_lists = []
+    while len(download_urls):
+        temp = []
+        i = 3
+        while True:
+            i = i-1
+            temp.append(download_urls.pop(0))
+            if i == 0 or len(download_urls) == 0:
+                break
+        download_lists.append(temp)
+    return download_lists
+    # print(download_lists)
 
 
 
 if __name__ =='__main__':
+    start_time = time.time()
     #得到html code
     driver_path = r"C:\Users\User\Desktop\chromedriver.exe"
     url = "https://www.youtube.com/user/mycgb2012/videos"
-    start = 5
-    video_number = 79
     driver = webdriver.Chrome(executable_path = driver_path)
     driver.get(url)
-    time.sleep(random.randrange(1,5))
+    time.sleep(1)
     scroll(driver ,7)
     #這裡得到的是經過ajax加載的html而不是source code
     html = driver.page_source
@@ -91,31 +104,26 @@ if __name__ =='__main__':
             pass
     # print(download_urls)
     
-    # #每i個url分一組，並儲存在download_lists中，分為格式為[[1,2,3],[4,5,6]。。]
-    download_lists = []
-    while len(download_urls):
-        temp = []
-        i = 5
-        while True:
-            i = i-1
-            temp.append(download_urls.pop(0))
-            if i == 0 or len(download_urls) == 0:
-                break
-        download_lists.append(temp)
-    print(download_lists)
-
-
+    #將download_urls每3個分為一組
+    download_lists = split_list(download_urls ,3)
+    
     #創建process pool
-    pool =p.Pool()
+    #本來使用8個process現在改用2個process
+    pool =p.Pool(processes=2)
     for download_list in download_lists:
+        print('將' ,download_list ,'放入pool中')
         pool.apply_async(process_create_thread_to_downlad , args = (download_list,))
         time.sleep(5)
-        print('創建了一個process下載' ,download_list)
     #關閉pool，防止新的工作進入pool，同時等待子進程完成
     pool.close()
+    print('關閉pool')
     pool.join()
-        
-
+    end_time = time.time()
+    spend = end_time - start_time
+    hour = spend // 3600
+    minu = (spend - 3600 * hour) // 60
+    sec = spend - 3600 * hour - 60 * minu
+    print('全部檔案已下載完成，共花了{0}小時{1}分{2}秒'.format(str(hour),str(minu),str(sec)))
     os.system('pause')
 
 
