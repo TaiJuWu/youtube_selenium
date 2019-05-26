@@ -67,11 +67,11 @@ def split_list(download_urls ,i):
     download_lists = []
     while len(download_urls):
         temp = []
-        i = 3
+        sp = i
         while True:
-            i = i-1
+            sp = sp -1
             temp.append(download_urls.pop(0))
-            if i == 0 or len(download_urls) == 0:
+            if sp == 0 or len(download_urls) == 0:
                 break
         download_lists.append(temp)
     return download_lists
@@ -105,7 +105,7 @@ if __name__ =='__main__':
     # print(download_urls)
     
     #將download_urls每3個分為一組
-    download_lists = split_list(download_urls ,3)
+    download_lists = split_list(download_urls ,2)
     
     #創建process pool
     #本來使用8個process現在改用2個process
