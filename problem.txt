@@ -7,3 +7,22 @@
 
 觀察到pool處理過程中 process數量為2 與數量為4 的情況
 url好像沒有過濾好，總共有150個url(又好像沒有問題 =  =)
+
+run time :3.0小時10.0分6.931861162185669秒
+
+中途報錯 :
+Exception in thread Thread-42:
+Traceback (most recent call last):
+  File "C:\Users\User\AppData\Local\Programs\Python\Python37\lib\threading.py", line 917, in _bootstrap_inner
+    self.run()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python37\lib\threading.py", line 865, in run
+    self._target(*self._args, **self._kwargs)
+  File "C:\Users\User\Desktop\learn\proj\python\youtube_selenium\utube_download.py", line 14, in get_vedio
+    YouTube(url=url).streams.first().download(output_path=dir_path)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python37\lib\site-packages\pytube\__main__.py", line 88, in __init__
+    self.prefetch_init()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python37\lib\site-packages\pytube\__main__.py", line 97, in prefetch_init
+    self.init()
+  File "C:\Users\User\AppData\Local\Programs\Python\Python37\lib\site-packages\pytube\__main__.py", line 133, in init
+    mixins.apply_signature(self.player_config_args, fmt, self.js)
+  File "C:\Users\User\AppData\Local\Programs\Python\Python37\lib\site-packages\pytube\mixins.py", line 49, in apply_signature
