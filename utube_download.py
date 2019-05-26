@@ -10,8 +10,12 @@ def get_vedio(url):
     print('file output in ' + dir_path)
     if not os.path.isdir(dir_path):
         os.mkdir(dir_path)
-    YouTube(url=url).streams.first().download(output_path=dir_path)
-try:
-    get_vedio('https://www.youtube.com/user/mycgb2012/featured')
-except pytube.exceptions.RegexMatchError as err:
-    print('123')
+    try:
+        YouTube(url=url).streams.first().download(output_path=dir_path)
+    except pytube.exceptions.RegexMatchError:
+        pass
+
+# try:
+#     get_vedio('https://www.youtube.com/user/mycgb2012/featured')
+# except pytube.exceptions.RegexMatchError as err:
+#     print('123')
