@@ -101,7 +101,9 @@ if __name__ =='__main__':
         try:
             download_urls.append(domain_name + tag['href']) 
         except KeyError as err:
-            pass
+            log = 'youtube_download_log.txt'
+            with open(log ,'a+' ,encoding='utf-8') as fp:
+                fp.write(tag + '\r\n' + err)
     # print(download_urls)
     
     #將download_urls每3個分為一組
