@@ -14,13 +14,15 @@ def get_vedio(url):
         os.mkdir(dir_path)
     try:
         YouTube(url=url).streams.filter(progressive=True).order_by('resolution').desc().first().download(output_path=dir_path)
-    except pytube.exceptions.RegexMatchError:
-        pass
+    except pytube.exceptions.RegexMatchError as err:
+        with open('get_video_log.txt','w+' ,encoding='utf8') as fp:
+            fp.write(url +'\r\n' + str(err) + '\r\n' + '='*30 + '\r\n')
 
 def scroll(driver ,scroll_time):
     count = 0
     while True:
         time.sleep(1)
+        driver.maximize_window()
         driver.execute_script("window.scrollTo(0, " + str(32000 * count) + ")")
         count = count +1
         scroll_time = scroll_time -1
