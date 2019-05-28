@@ -13,7 +13,7 @@ import time
 if __name__ =='__main__':
     start_time = time.time()
     #得到html code
-    driver_path = r"C:\Users\User\Desktop\chromedriver.exe"
+    driver_path = os.getcwd() + '/chromedriver.exe'
     url = "https://www.youtube.com/user/mycgb2012/videos"
     driver = webdriver.Chrome(executable_path = driver_path)
     driver.get(url)
@@ -34,7 +34,7 @@ if __name__ =='__main__':
         except KeyError as err:
             log = 'youtube_download_log.txt'
             with open(log ,'a+' ,encoding='utf-8') as fp:
-                fp.write('tag:\r\n' + tag + 'error message:\r\n' + err + '='*30 + '\r\n')
+                fp.write('tag:\r\n' + str(tag) + 'error message:\r\n' + str(err) + '='*30 + '\r\n')
     # print(download_urls)
     
     #將download_urls每3個分為一組
