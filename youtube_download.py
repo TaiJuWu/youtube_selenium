@@ -34,7 +34,7 @@ if __name__ =='__main__':
         except KeyError as err:
             log = 'youtube_download_log.txt'
             with open(log ,'a+' ,encoding='utf-8') as fp:
-                fp.write('tag:\r\n' + str(tag) + 'error message:\r\n' + str(err) + '='*30 + '\r\n')
+                fp.write('tag:\r\n' + str(tag) + '\r\n' + 'error message:\r\n' + str(err) + '='*30 + '\r\n')
     # print(download_urls)
     
     #將download_urls每3個分為一組
