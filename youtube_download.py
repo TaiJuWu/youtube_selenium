@@ -13,7 +13,7 @@ import time
 if __name__ =='__main__':
     start_time = time.time()
     #得到html code
-    driver_path = os.getcwd() + '/chromedriver.exe'
+    driver_path = os.path.join(os.getcwd() ,crawler_vedio)
     url = "https://www.youtube.com/user/mycgb2012/videos"
     driver = webdriver.Chrome(executable_path = driver_path)
     driver.get(url)
